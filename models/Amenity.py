@@ -1,4 +1,4 @@
-from air_bnb.models.base_class import BaseModel
+from models.base_model import BaseModel
 
 """
 Module for the Amenity class.
