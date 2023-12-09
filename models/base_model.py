@@ -1,7 +1,8 @@
+#!/usr/bin/python3
 import uuid
 from datetime import datetime
-from air_bnb import models
-import kwargs as kwargs
+import models
+
 
 """
 Module for the BaseModel class.

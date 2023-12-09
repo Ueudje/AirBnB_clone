@@ -1,12 +1,13 @@
+#!/usr/bin/python3
 import json
 import os
-from air_bnb.models.base_class import BaseModel
-from air_bnb.models.User import User
-from air_bnb.models.City import City
-from air_bnb.models.Place import Place
-from air_bnb.models.Amenity import Amenity
-from air_bnb.models.Review import Review
-from air_bnb.models.State import State
+from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.city import City
 
 """
 Module for serializing and deserializing data
