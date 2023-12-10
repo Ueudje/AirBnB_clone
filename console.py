@@ -3,16 +3,18 @@ import cmd
 import shlex
 from models.__init__ import storage
 from models.base_model import BaseModel
-from models.User import User
-from models.Amenity import Amenity
-from models.Place import Place
-from models.Review import Review
-from models.State import State
-from models.City import City
+from models.user import User
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.city import City
+
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
-    valid_classes = ["BaseModel", "User", "State", "City", "Amenity", "Review", "Place"]
+    valid_classes = ["BaseModel", "User", "State", "City",
+                     "Amenity", "Review", "Place"]
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -36,7 +38,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """
-                Create a new instance of BaseModel and save it to the JSON file.
+                Create a new instance of BaseModel and
+                save it to the JSON file.
                 Usage: create <class_name>
                 """
         commands = shlex.split(arg)
@@ -45,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
         elif commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
         else:
-            new_instance = globals()["{}".format(commands[0])]()   
+            new_instance = globals()["{}".format(commands[0])]()
             storage.save()
             print(new_instance.id)
 
@@ -89,7 +92,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """
-                Print the string representation of all instances or a specific class.
+                Print the string representation of all
+                instances or a specific class.
                 Usage: <User>.all()
                         <User>.show()
                 """
@@ -107,8 +111,10 @@ class HBNBCommand(cmd.Cmd):
 
         def do_update(self, arg):
             """
-                   Update an instance by adding or updating an attribute.
-                   Usage: update <class_name> <id> <attribute_name> "<attribute_value>"
+                   Update an instance by
+                   adding or updating an attribute.
+                   Usage: update <class_name> <id>
+                   <attribute_name> "<attribute_value>"
                    """
             commands = shlex.split(arg)
             if len(commands) == 0:
@@ -138,5 +144,5 @@ class HBNBCommand(cmd.Cmd):
                     obj.save()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
