@@ -138,5 +138,5 @@ class HBNBCommand(cmd.Cmd):
                     obj.save()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
