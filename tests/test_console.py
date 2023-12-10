@@ -105,7 +105,7 @@ class Test_Console(TestCase):
         for cls in all_Classes:
             """test models"""
             with patch('sys.stdout', new=StringIO()) as f:
-                self.assertFalse(HBNBCommand().onecmd(f"create {cls}"))
+                self.assertFalse(HBNBCommand().onecmd("create {}".format(cls))
                 output = f.getvalue().strip()
                 """check print id"""
                 self.assertRegex(output, a)
