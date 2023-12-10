@@ -5,7 +5,7 @@ from models.__init__ import storage
 from models.base_model import BaseModel
 from models.User import User
 from models.Amenity import Amenity
-from models.Alace import Place
+from models.Place import Place
 from models.Review import Review
 from models.State import State
 from models.City import City
@@ -45,7 +45,7 @@ class HBNBCommand(cmd.Cmd):
         elif commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
         else:
-            new_instance = eval("{}()".format(commands[0])
+            new_instance = eval("{commands[0]}()")
             storage.save()
             print(new_instance.id)
 
@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             objects = storage.all()
-            key = f"{commands[0]}.{commands[1]}"
+            key = "{}.{}".format(commands[0], commands[1])
             if key in objects:
                 print(objects[key])
             else:
@@ -79,7 +79,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         else:
             objects = storage.all()
-            key = f"{commands[0]}.{commands[1]}"
+            key = "{}.{}".format(commands[0], commands[1])
             if key in objects:
                 del objects[key]
 
@@ -136,4 +136,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
-
