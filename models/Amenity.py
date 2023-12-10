@@ -1,5 +1,5 @@
 #!/usr/bin/python3 
-from AirBnB_clone.models.base_model import BaseModel
+from models.base_model import BaseModel
 
 """
 Module for the Amenity class.

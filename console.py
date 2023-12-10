@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 import cmd
 import shlex
-from models import storage
+from models.__init__ import storage
 from models.base_model import BaseModel
-from models.user import User
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.city import City
+from models.User import User
+from models.Amenity import Amenity
+from models.Alace import Place
+from models.Review import Review
+from models.State import State
+from models.City import City
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
