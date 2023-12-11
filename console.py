@@ -92,6 +92,7 @@ class HBNBCommand(cmd.Cmd):
             key = "{}.{}".format(commands[0], commands[1])
             if key in objects:
                 del objects[key]
+                storage.save()
 
     def do_all(self, arg):
         """
