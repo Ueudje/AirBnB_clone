@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Module for console
+"""
 import cmd
 import shlex
 from models.__init__ import storage
