@@ -113,39 +113,39 @@ class HBNBCommand(cmd.Cmd):
                 if key.split('.')[0] == commands[0]:
                     print(str(value))
 
-        def do_update(self, arg):
-            """
+    def do_update(self, arg):
+        """
                    Update an instance by
                    adding or updating an attribute.
                    Usage: update <class_name> <id>
                    <attribute_name> "<attribute_value>"
                    """
-            commands = shlex.split(arg)
-            if len(commands) == 0:
-                print("** class name missing **")
-            elif commands[0] not in self.valid_classes:
-                print("** class doesn't exist **")
-            elif len(commands) < 2:
-                print("** instance id missing **")
+        commands = shlex.split(arg)
+        if len(commands) == 0:
+            print("** class name missing **")
+        elif commands[0] not in self.valid_classes:
+            print("** class doesn't exist **")
+        elif len(commands) < 2:
+            print("** instance id missing **")
+        else:
+            objects = storage.all()
+            key = "{}.{}".format(commands[0], commands[1])
+            if key not in objects:
+                print("** no instance found **")
+            elif len(commands) < 3:
+                print("** attribute name missing **")
+            elif len(commands) < 4:
+                print("** value missing **")
             else:
-                objects = storage.all()
-                key = "{}.{}".format(commands[0], commands[1])
-                if key not in objects:
-                    print("** no instance found **")
-                elif len(commands) < 3:
-                    print("** attribute name missing **")
-                elif len(commands) < 4:
-                    print("** value missing **")
-                else:
-                    obj = objects[key]
-                    atr_name = commands[3]
-                    atr_value = commands[4]
-                    try:
-                        atr_value = eval(atr_value)
-                    except Exception:
-                        pass
-                    setattr(obj, atr_name, atr_value)
-                    obj.save()
+                obj = objects[key]
+                atr_name = commands[2]
+                atr_value = commands[3]
+                try:
+                    atr_value = eval(atr_value)
+                except Exception:
+                    pass
+                setattr(obj, atr_name, atr_value)
+                obj.save()
 
 
 if __name__ == '__main__':
