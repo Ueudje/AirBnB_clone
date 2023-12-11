@@ -1,49 +1,70 @@
 #!/usr/bin/python3
-"""import models"""
-from models.review import Review
-from unittest import TestCase
-from datetime import datetime
+"""Tests for Review"""
 import unittest
-
-"""model Test review"""
-
-
-class Test_State(TestCase):
-    """this model test class review"""
-
-    def test_hasattr(self):
-        """Test attr and methods"""
-        new = Review()
-        new.place_id = "test"
-        new.user_id = "test2"
-        new.text = "test3"
-
-        """Test attribute exist"""
-        self.assertTrue(hasattr(new, 'id'))
-        self.assertTrue(hasattr(new, "created_at"))
-        self.assertTrue(hasattr(new, "updated_at"))
-        self.assertTrue(hasattr(new, "place_id"))
-        self.assertTrue(hasattr(new, "user_id"))
-        self.assertTrue(hasattr(new, "text"))
-
-    def test_methods(self):
-        """Test methods exist"""
-        new = Review()
-        self.assertTrue(hasattr(new, "__init__"))
-        self.assertTrue(hasattr(new, "__str__"))
-        self.assertTrue(hasattr(new, "save"))
-        self.assertTrue(hasattr(new, "to_dict"))
-
-    def test_type(self):
-        """type test"""
-        new = Review()
-        self.assertIsInstance(new.id, str)
-        self.assertIsInstance(new.created_at, datetime)
-        self.assertIsInstance(new.updated_at, datetime)
-        self.assertIsInstance(new.place_id, str)
-        self.assertIsInstance(new.user_id, str)
-        self.assertIsInstance(new.text, str)
+import os
+import pep8
+from models.review import Review
+from models.base_model import BaseModel
 
 
-if __name__ == '__main__':
+class TestReview(unittest.TestCase):
+    """To test Review Class"""
+
+    @classmethod
+    def setUpClass(cls):
+        """Setup for test"""
+        cls.review1 = Review()
+        cls.review1.place_id = "Morocco"
+        cls.review1.user_id = "Michael"
+        cls.review1.text = "I loved it there"
+
+    @classmethod
+    def tearDownClass(cls):
+        """Teardown for test"""
+        del cls.review1
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+
+    def test_docstring_Review(self):
+        """Test for docstrings"""
+        self.assertIsNotNone(Review.__doc__)
+
+    def test_pep8_review(self):
+        """tests pep8"""
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(['models/review.py'])
+        self.assertEqual(p.total_errors, 0, "fix pep8")
+
+    def test_subclass_Review(self):
+        """Test if Review inherited from BaseModel"""
+        self.assertTrue(issubclass(self.review1.__class__, BaseModel), True)
+
+    def test_attribute_Review(self):
+        """Test for attributes in Review"""
+        self.assertTrue('id' in self.review1.__dict__)
+        self.assertTrue('created_at' in self.review1.__dict__)
+        self.assertTrue('updated_at' in self.review1.__dict__)
+        self.assertTrue('place_id' in self.review1.__dict__)
+        self.assertTrue('user_id' in self.review1.__dict__)
+        self.assertTrue('text' in self.review1.__dict__)
+
+    def test_attributeType_Review(self):
+        """Test attribute types in instances"""
+        self.assertEqual(type(self.review1.place_id), str)
+        self.assertEqual(type(self.review1.user_id), str)
+        self.assertEqual(type(self.review1.text), str)
+
+    def test_to_dict(self):
+        """Test if serialization works"""
+        self.assertEqual('to_dict' in dir(self.review1), True)
+
+    def test_save(self):
+        """Test the save function"""
+        self.review1.save()
+        self.assertNotEqual(self.review1.created_at, self.review1.updated_at)
+
+
+if __name__ == "__main__":
     unittest.main()
